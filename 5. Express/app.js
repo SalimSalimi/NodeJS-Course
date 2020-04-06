@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+
 //Adding body-parser to parse the body of the request
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -14,25 +17,17 @@ app.use(bodyParser.urlencoded({extended: false}));
 **  The template defines how the endpoint should start
 **  For example: if we do '/' first and access another endpoint
 **  It will go to '/' first! 
+**  It applies only if we use "use" instead of get, post..
 **/
-app.use('/',(req, res, next) => {
-    next(); // Going to next middleware
-});
 
-app.use('/add-product', (req, res, next) => {
-    //Send data!
-    res.send('<form method="POST" action="/product"><input type="text" name="title"><button type="submit">Add product</button>');
-});
+/********
+ * Routes => a better way to define routes and separate in different files
+ * Using express.Router()
+ * After defining the routes, we must export the router object
+ * Import it and use those middleware with app.use
+ */
 
-//Triggering a route for a specific method request
-app.post('/product',(req,res,next) => {
-    //We have to use body-parser to parse the body of the incoming request
-    console.log(req.body);
-    res.redirect("/");
-})
-
-app.use('/',(req, res, next) => {
-    res.send('<h1> Route page <h1>');
-});
+app.use(adminRoutes);
+app.use(shopRoutes);
 
 app.listen(3000);
