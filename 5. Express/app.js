@@ -27,11 +27,20 @@ app.use(bodyParser.urlencoded({extended: false}));
  * Import it and use those middleware with app.use
  */
 
-app.use(adminRoutes);
+ /**
+  * When we have routes that share the same root like "/admin/" in this case
+  * We can ommit the /admin/ on the routes and add it on app.use
+  * This way, whenever a route get executed on adminRoutes
+  * It will executes /admin/(route)
+  * We don't have to specify admin on our route on adminRoutes
+  */
+app.use('/admin',adminRoutes);
 app.use(shopRoutes);
 
 app.use((req, res) => {
-    res.status(404).send("<h1>Page not found</h1>")
+    res.status(404).send("<h1>Page not found</h1>");
 })
 
-app.listen(3000);
+app.listen(3000, () => {
+    console.log("Server started at port 3000");
+});
