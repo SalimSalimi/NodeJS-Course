@@ -3,17 +3,26 @@ const express = require('express');
 
 const app = express();
 
-//Middleware => To Handle the request
-app.use((req, res, next) => {
-    console.log("In the middleware");
+/*Middleware => To Handle the request 
+**  We can add multiple routes
+**  To do it, we just have to use app.use
+**  It executes by order
+**  The template defines how the endpoint should start
+**  For example: if we do '/' first and access another endpoint
+**  It will go to '/' first! 
+**/
+app.use('/',(req, res, next) => {
+    console.log("Add prod");
     next(); // Going to next middleware
 });
 
-app.use((req, res, next) => {
-    console.log("In another middleware");
-    res.send('<h1> Hello from Express! <h1>');
+app.use('/add-product', (req, res, next) => {
+    //Send data!
+    res.send('<h1> Add product page! <h1>');
 });
 
-const server = http.createServer(app);
+app.use('/',(req, res, next) => {
+    res.send('<h1> Route page <h1>');
+});
 
-server.listen(3000);
+app.listen(3000);
