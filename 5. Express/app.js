@@ -11,6 +11,14 @@ const shopRoutes = require('./routes/shop');
 //Adding body-parser to parse the body of the request
 app.use(bodyParser.urlencoded({extended: false}));
 
+/**
+ * To serve static files like JS scripts or css files
+ * NodeJs blocks the access to read or write on the files
+ * To have read access right, we have to use express.static
+ * On our case, it will serve the folder public to access css files
+ */
+app.use(express.static(path.join(__dirname, 'public')));
+
 /*Middleware => To Handle the request 
 **  We can add multiple routes
 **  To do it, we just have to use app.use
