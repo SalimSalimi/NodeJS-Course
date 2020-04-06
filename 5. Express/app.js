@@ -1,7 +1,11 @@
 const http = require('http');
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+//Adding body-parser to parse the body of the request
+app.use(bodyParser.urlencoded({extended: false}));
 
 /*Middleware => To Handle the request 
 **  We can add multiple routes
@@ -12,14 +16,19 @@ const app = express();
 **  It will go to '/' first! 
 **/
 app.use('/',(req, res, next) => {
-    console.log("Add prod");
     next(); // Going to next middleware
 });
 
 app.use('/add-product', (req, res, next) => {
     //Send data!
-    res.send('<h1> Add product page! <h1>');
+    res.send('<form method="POST" action="/product"><input type="text" name="title"><button type="submit">Add product</button>');
 });
+
+app.use('/product',(req,res,next) => {
+    //We have to use body-parser to parse the body of the incoming request
+    console.log(req.body);
+    res.redirect("/");
+})
 
 app.use('/',(req, res, next) => {
     res.send('<h1> Route page <h1>');
