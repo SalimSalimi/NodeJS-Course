@@ -1,10 +1,12 @@
 const express = require('express');
+const path = require('path')
+
 const router = express.Router();
 
 // /admin/add-product => GET
 router.get('/add-product', (req, res, next) => {
     //Send data!
-    res.send('<form method="POST" action="/admin/add-product"><input type="text" name="title"><button type="submit">Add product</button>');
+    res.sendFile(path.join(__dirname, '../', 'views', 'add-product.html'));
 });
 
 //Triggering a route for a specific method request
