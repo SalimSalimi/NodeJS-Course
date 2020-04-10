@@ -19,6 +19,15 @@ app.use(bodyParser.urlencoded({extended: false}));
  */
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*  Template View Engines
+ *  It generates the HTML code for our page dynamically
+ *  There is 3 major: EJS, PUG, handlebars
+ *  We have to specify which template engine we would use like this
+ */
+app.set('view engine', 'pug');
+//Specify to express and view engine where to find the views
+app.set('views', 'views')
+
 /*Middleware => To Handle the request 
 **  We can add multiple routes
 **  To do it, we just have to use app.use
@@ -47,7 +56,7 @@ app.use('/admin',adminData.router);
 app.use(shopRoutes);
 
 app.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
+    res.status(404).render('404');
 })
 
 app.listen(3000, () => {
