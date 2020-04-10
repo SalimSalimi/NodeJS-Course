@@ -4,6 +4,8 @@ const path = require('path');
 const router = express.Router();
 
 const rootDir = require('../utils/path');
+
+const adminData = require('./admin');
 /**
  * To serve HTML file, we have to use the sendFile method
  * It takes the absolute path of the file
@@ -12,6 +14,7 @@ const rootDir = require('../utils/path');
  * 
  */
 router.get('/',(req, res, next) => {
+    console.log(adminData.products)
     res.sendFile(path.join(rootDir,'views', 'shop.html'))
 });
 

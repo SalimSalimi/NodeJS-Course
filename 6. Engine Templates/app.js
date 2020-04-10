@@ -5,7 +5,7 @@ const path = require('path');
 
 const app = express();
 
-const adminRoutes = require('./routes/admin');
+const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 //Adding body-parser to parse the body of the request
@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
   * It will executes /admin/(route)
   * We don't have to specify admin on our route on adminRoutes
   */
-app.use('/admin',adminRoutes);
+app.use('/admin',adminData.router);
 app.use(shopRoutes);
 
 app.use((req, res) => {
