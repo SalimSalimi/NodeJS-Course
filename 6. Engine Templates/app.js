@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  *  There is 3 major: EJS, PUG, handlebars
  *  We have to specify which template engine we would use like this
  */
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 //Specify to express and view engine where to find the views
 app.set('views', 'views')
 
