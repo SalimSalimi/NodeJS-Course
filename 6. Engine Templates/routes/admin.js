@@ -10,7 +10,7 @@ const products = [];
 // /admin/add-product => GET
 router.get('/add-product', (req, res, next) => {
     //Send data!
-    res.render('add-product.pug', ({docTitle: "Add product", path: '/admin/add-product"'}));
+    res.render('add-product', {docTitle: "Add product", path: '/admin/add-product'});
 });
 
 //Triggering a route for a specific method request
