@@ -5,8 +5,9 @@ const path = require('path');
 
 const app = express();
 
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const errorController = require('./controllers/error')
 
 //Adding body-parser to parse the body of the request
 app.use(bodyParser.urlencoded({extended: false}));
@@ -52,12 +53,10 @@ app.set('views', 'views')
   * It will executes /admin/(route)
   * We don't have to specify admin on our route on adminRoutes
   */
-app.use('/admin',adminData.router);
+app.use('/admin',adminRoutes);
 app.use(shopRoutes);
 
-app.use((req, res) => {
-    res.status(404).render('404', ({docTitle: '404 Page not found'}));
-})
+app.use(errorController.get404)
 
 app.listen(3000, () => {
     console.log("Server started at port 3000");
