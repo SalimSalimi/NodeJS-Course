@@ -1,4 +1,5 @@
-const products = [];
+const Product = require('../models/product');
+
 
 exports.getAddProduct = (req, res, next) => {
     //Send data!
@@ -13,7 +14,8 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req,res,next) => {
     //We have to use body-parser to parse the body of the incoming request
-    products.push({title: req.body.title});
+    const product = new Product(req.body.title);
+    product.save();
     res.redirect("/");
 }
 
@@ -32,6 +34,7 @@ exports.getProducts = (req, res, next) => {
      * We don't have to explicitely the path of the view
      * Just specify the name of the view
      */
+    const products = Product.fetchAll();
     res.render('shop', {
         prods: products,
         pageTitle: 'Shop',
