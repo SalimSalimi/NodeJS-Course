@@ -29,7 +29,7 @@ router.get('/',(req, res, next) => {
      * We don't have to explicitely the path of the view
      * Just specify the name of the view
      */
-    res.render('shop', {prods: products, docTitle: 'Shop'})
+    res.render('shop', {prods: products, docTitle: 'Shop', path: '/'})
 });
 
 module.exports = router;
