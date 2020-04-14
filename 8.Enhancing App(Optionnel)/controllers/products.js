@@ -3,7 +3,7 @@ const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
     //Send data!
-    res.render('add-product', {
+    res.render('admin/add-product', {
         pageTitle: "Add product",
         path: '/admin/add-product',
         formsCSS: true,
@@ -35,7 +35,7 @@ exports.getProducts = (req, res, next) => {
      * Just specify the name of the view
      */
     Product.fetchAll((products) => {
-        res.render('shop', {
+        res.render('shop/product-list', {
             prods: products,
             pageTitle: 'Shop',
             path: '/',
