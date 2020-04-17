@@ -15,7 +15,6 @@ const getProductsFromFile = callback => {
     });
 }
 
-
 module.exports = class Product {
     constructor(title, imageUrl, description, price) {
         this.title = title;
@@ -25,6 +24,7 @@ module.exports = class Product {
     }
 
     save() {
+        this.id = Math.random().toString();
         getProductsFromFile(products => {
             products.push(this);
             fs.writeFile(pathFile, JSON.stringify(products), (err) => {
@@ -35,5 +35,12 @@ module.exports = class Product {
     //We should pass callback because reading file is asynchronous
     static fetchAll(callback) {
         getProductsFromFile(callback);
+    }
+
+    static findById(id, callback) {
+        getProductsFromFile(products => {
+            const product = products.find(p => p.id === id);
+            callback(product);
+        });
     }
 }
