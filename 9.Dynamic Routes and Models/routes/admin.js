@@ -10,8 +10,10 @@ router.get('/add-product', adminController.getAddProduct);
 
 //Triggering a route for a specific method request
 // /admin/add-product => POST
-router.post('/add-product', adminController.postAddProduct)
+router.post('/add-product', adminController.postAddProduct);
 
-router.get('/products', adminController.getProducts)
+router.get('/products', adminController.getProducts);
+
+router.get('/edit-product/:productId', adminController.getEditProduct);
 
 module.exports = router;

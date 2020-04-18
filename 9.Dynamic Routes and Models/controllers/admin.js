@@ -2,12 +2,9 @@ const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
     //Send data!
-    res.render('admin/add-product', {
+    res.render('admin/edit-product', {
         pageTitle: "Add product",
-        path: '/admin/add-product',
-        formsCSS: true,
-        productCSS: true,
-        activeAddProduct: true
+        path: '/admin/add-product'
     });
 }
 
@@ -22,6 +19,20 @@ exports.postAddProduct = (req,res,next) => {
 
     product.save();
     res.redirect("/");
+}
+
+exports.getEditProduct = (req, res, next) => {
+    //It's redundent but it only an example here
+    const editMode = req.query.edit;
+    if (!editMode) {
+        res.redirect('/');
+    }
+
+    res.render('admin/edit-product', {
+        pageTitle: "Edit Product",
+        path: '/admin/edit-product',
+        editing: editMode
+    });
 }
 
 exports.getProducts = (req, res) => {
