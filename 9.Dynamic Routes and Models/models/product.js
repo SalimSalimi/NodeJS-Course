@@ -43,6 +43,18 @@ module.exports = class Product {
             }
         });
     }
+
+    static deleteById(id) {
+        getProductsFromFile(products => {
+            const updatedProducts = products.filter(p => p.id !== id);
+            fs.writeFileSync(pathFile, JSON.stringify(updatedProducts), err => {
+                if (!err) {
+                    //Remove from the cart
+                }
+            })
+        });
+    }
+
     //We should pass callback because reading file is asynchronous
     static fetchAll(callback) {
         getProductsFromFile(callback);
