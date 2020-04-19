@@ -59,13 +59,25 @@ Scaling is the action of adding more capacities to our system (CPU, Memory, Stor
 
 For Horizontal Scaling, we add more servers to our servers. It can be infinite and the only issue is that we have to merge and try to synchronize all the servers between each other.
 
-### Vertical Scalig
+### Vertical Scaling
 
 For Vertical Scaling, we simply add or replace components of our existing server, but it's limited since we can't not have more than amount of CPU for example.
 
 ### SQL vs NoSQL difference
 
 ![SQL vs NoSQL](https://i.imgur.com/mEi3eGM.png)
+
+# SQL Database Implementation
+
+## Installation of Dependencies
+
+To implement a SQL database with Node, we have first to install mysql2 with npm: `npm install --save mysql2`.
+
+## Configuration and connection
+
+To connect to any database server, it's common to close the connection after every request, but at sometime, it could be heavy to handle it. So, in order to avoid this, we can create a pool.
+
+To create a pool, we have to use the mysql object and create a new pool, we have to specify the host, username, database name and mysql password. _(See database.js)_
 
 # Side notes
 
