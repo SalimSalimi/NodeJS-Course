@@ -79,6 +79,20 @@ To connect to any database server, it's common to close the connection after eve
 
 To create a pool, we have to use the mysql object and create a new pool, we have to specify the host, username, database name and mysql password. _(See database.js)_
 
+### Execute a query
+
+To execute a query, we have to use the `execute("query")` method provided by `pool` that we created (it uses promises) to execute a query. So:
+
+```
+pool.execute("SELECT * FROM tableName")
+    .then(result => {
+        console.log(result);
+    })
+    .catch(err => {
+        console.log(error);
+    })
+```
+
 # Side notes
 
 - **include-EJS**: On EJS, if we include a template that uses a variable, this include is used inside a block (for-loop for example). We can pass that variable to the include like this: `<%- include('file', {value: variable})%>`
