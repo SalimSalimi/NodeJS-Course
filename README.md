@@ -93,6 +93,18 @@ pool.execute("SELECT * FROM tableName")
     })
 ```
 
+### Insert data safely
+
+To insert data, we have to execute an INSERT query.
+
+- **IMPORTANT**: To avoid SQL Injections, we have to write our query and sending parameters by letting MySQL formatting them. To do so, we have to represent the values using '?' and pass the data out of the query, passing them as argument like this:
+  ```
+  db.execute(
+    "INSERT INTO products (title, price, imageUrl, description) VALUE (?, ?, ?, ?)",
+    [this.title, this.price, this.imageUrl, this.description]
+  );
+  ```
+
 # Side notes
 
 - **include-EJS**: On EJS, if we include a template that uses a variable, this include is used inside a block (for-loop for example). We can pass that variable to the include like this: `<%- include('file', {value: variable})%>`
