@@ -1,22 +1,72 @@
 ## Dynamic routes
+
 The goal of dynamic route is to specify which element (product) that we want to access according to his ID. We have just to print with EJS `<%= product.id>` on `<a>`
-* **NOTE**: The order is important, we should make dynamic routes after static routes (In case they share the same root). Example: 
+
+- **NOTE**: The order is important, we should make dynamic routes after static routes (In case they share the same root). Example:
+
 ```
 app.get("products/delete", handler);
 app.get("products/:something, handler);
 ```
+
 If we invert the order here, It will consider "delete" like an argument so It will execute the second one.
 
 #### Access parameter from the request
+
 To access a parameter from the request, we simply use `req.params.parameterName` to access it on our controller. `const parameterValue = req.params.parameterName`. For now, It should treated as a String.
 
 #### Query Parameters
-Query parameters are optional parameters that are sent with in the URL. Example: `https://example.com/route?param1=value&param2=value`. 
+
+Query parameters are optional parameters that are sent with in the URL. Example: `https://example.com/route?param1=value&param2=value`.
 
 To access it from a request handler, we can use the req object by: `req.query.paramName`.
 
 #### Handling POST requests
+
 We access to the POST parameters from the body with : `req.body.parameterName`. Sometimes, we would need to send the ID for example without showing it on the UI, we can add input element of type hidden, giving it a value of the ID and give it a name to access it from the request handler.
 
+# Databases
+
+## SQL
+
+SQL databases consists of a multiple tables defined by a name. Every table has columns. Rows represent the data. We can connect between tables (relation) using foreign keys. So, SQL database has:
+
+### Characteristics
+
+- **Data Schema**: Each table, we defind how the data is represented (String, text, boolean..)
+- **Data Relations**: We relate relations with different tables and we have 3 different relations: _One-To-One_, _One-To-Many_, _Many-To-Many_.
+
+## NoSQL
+
+NoSQL stands that it doesn't follow the SQL logic (Doesn't use SQL language, doesn't have a data schema).
+
+The table equivalent on NoSQL databases are called _Collections_. On collections, we will find _documents_ (records equivalent on SQL).
+
+It doesn't have relations, but instead, we duplicate the data to make some sort of a relation between documents.
+
+### Characteristics
+
+- **No Data Schema**: It doesn't have a fixes data schema. We can have different records of multiple schemas on the same collection.
+- **No Relation**: It doesn't have relation between or at least just few relations between collections. It's not recommended because It will make the query slower.
+
+## SQL vs NoSQL
+
+### Scaling
+
+Scaling is the action of adding more capacities to our system (CPU, Memory, Storage). To do so, we have 2 methods:
+
+### Horizontal Scaling
+
+For Horizontal Scaling, we add more servers to our servers. It can be infinite and the only issue is that we have to merge and try to synchronize all the servers between each other.
+
+### Vertical Scalig
+
+For Vertical Scaling, we simply add or replace components of our existing server, but it's limited since we can't not have more than amount of CPU for example.
+
+### SQL vs NoSQL difference
+
+![SQL vs NoSQL](https://i.imgur.com/mEi3eGM.png)
+
 # Side notes
-* **include-EJS**: On EJS, if we include a template that uses a variable, this include is used inside a block (for-loop for example). We can pass that variable to the include like this: `<%- include('file', {value: variable})%>` 
+
+- **include-EJS**: On EJS, if we include a template that uses a variable, this include is used inside a block (for-loop for example). We can pass that variable to the include like this: `<%- include('file', {value: variable})%>`
