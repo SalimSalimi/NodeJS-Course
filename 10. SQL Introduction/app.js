@@ -1,10 +1,8 @@
-const http = require("http");
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 
 const app = express();
-const pool = require("./utils/database");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
@@ -56,15 +54,6 @@ app.set("views", "views");
  */
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
-
-pool
-  .execute("SELECT * FROM products")
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 app.use(errorController.get404);
 
