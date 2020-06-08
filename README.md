@@ -175,6 +175,8 @@ Product.findAll({where: {id: prodId}});
 
 It returns a Promise and result is always an array.
 
+#### Update data
+To update a row on a table, we have to find the corresponding row that we want to chage with `findByPk`. We set the new values to the object result, then to save it on the database, we have to call `product.save()` *(Otherwise, it will change only locally)*. This function returns a Promise, we return `product.save()` to handle the promise, and in `then()`, we are sure that the object is updated on the database. 
 
 # Side notes
 
