@@ -16,17 +16,15 @@ exports.getProducts = (req, res, next) => {
    * We don't have to explicitely the path of the view
    * Just specify the name of the view
    */
-  Product.fetchAll()
-    .then(([rows, fieldData]) => {
-      res.render("shop/product-list", {
-        prods: rows,
-        pageTitle: "All Products",
-        path: "/products",
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+  Product.findAll().then(products => {
+    res.render("shop/product-list", {
+      prods: products,
+      pageTitle: "All Products",
+      path: "/products",
     });
+  }).catch(error => {
+    console.log(error);
+  });
 };
 
 exports.getProduct = (req, res, next) => {
@@ -45,17 +43,15 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
-  Product.fetchAll()
-    .then(([rows, fieldData]) => {
-      res.render("shop/index", {
-        prods: rows,
-        pageTitle: "Shop",
-        path: "/",
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+  Product.findAll().then(products => {
+    res.render("shop/index", {
+      prods: products,
+      pageTitle: "Shop",
+      path: "/",
     });
+  }).catch(error => {
+    console.log(error);
+  });
 };
 
 exports.getCart = (req, res) => {

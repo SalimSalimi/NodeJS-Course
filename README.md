@@ -156,6 +156,12 @@ To make Sequelize create tables defined by the models, we should import the Sequ
 
 To add a new entry to the database, we have to use the Product model and use `create()` or `build()` method. The difference between the two methods is that the first one adds automatically to the database. The create method takes an object of type of the model itself. Example: `Product.create(object)`.
 
+### Fetching Data 
+
+To fetch from database, we use Product model and call `findAll()` method to fetch all the data. It returns a Promise. 
+
+- *N.B*: In `findAll()` method, we can add options like WHERE condition..
+
 # Side notes
 
 - **include-EJS**: On EJS, if we include a template that uses a variable, this include is used inside a block (for-loop for example). We can pass that variable to the include like this: `<%- include('file', {value: variable})%>`
