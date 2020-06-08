@@ -59,7 +59,7 @@ Scaling is the action of adding more capacities to our system (CPU, Memory, Stor
 
 For Horizontal Scaling, we add more servers to our servers. It can be infinite and the only issue is that we have to merge and try to synchronize all the servers between each other.
 
-### Vertical Scalig
+### Vertical Scaling
 
 For Vertical Scaling, we simply add or replace components of our existing server, but it's limited since we can't not have more than amount of CPU for example.
 
@@ -67,6 +67,45 @@ For Vertical Scaling, we simply add or replace components of our existing server
 
 ![SQL vs NoSQL](https://i.imgur.com/mEi3eGM.png)
 
+# SQL Database Implementation
+
+## Installation of Dependencies
+
+To implement a SQL database with Node, we have first to install mysql2 with npm: `npm install --save mysql2`.
+
+## Configuration and connection
+
+To connect to any database server, it's common to close the connection after every request, but at sometime, it could be heavy to handle it. So, in order to avoid this, we can create a pool.
+
+To create a pool, we have to use the mysql object and create a new pool, we have to specify the host, username, database name and mysql password. _(See database.js)_
+
+### Execute a query
+
+To execute a query, we have to use the `execute("query")` method provided by `pool` that we created (it uses promises) to execute a query. So:
+
+```
+pool.execute("SELECT * FROM tableName")
+    .then(result => {
+        console.log(result);
+    })
+    .catch(err => {
+        console.log(error);
+    })
+```
+
+### Insert data safely
+
+To insert data, we have to execute an INSERT query.
+
+- **IMPORTANT**: To avoid SQL Injections, we have to write our query and sending parameters by letting MySQL formatting them. To do so, we have to represent the values using '?' and pass the data out of the query, passing them as argument like this:
+  ```
+  db.execute(
+    "INSERT INTO products (title, price, imageUrl, description) VALUE (?, ?, ?, ?)",
+    [this.title, this.price, this.imageUrl, this.description]
+  );
+  ```
+
 # Side notes
 
 - **include-EJS**: On EJS, if we include a template that uses a variable, this include is used inside a block (for-loop for example). We can pass that variable to the include like this: `<%- include('file', {value: variable})%>`
+
