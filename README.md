@@ -69,17 +69,19 @@ For Vertical Scaling, we simply add or replace components of our existing server
 
 # SQL Database Implementation
 
-## Installation of Dependencies
+## SQL Default Implementation
+
+### Installation of Dependencies
 
 To implement a SQL database with Node, we have first to install mysql2 with npm: `npm install --save mysql2`.
 
-## Configuration and connection
+### Configuration and connection
 
 To connect to any database server, it's common to close the connection after every request, but at sometime, it could be heavy to handle it. So, in order to avoid this, we can create a pool.
 
 To create a pool, we have to use the mysql object and create a new pool, we have to specify the host, username, database name and mysql password. _(See database.js)_
 
-### Execute a query
+#### Execute a query
 
 To execute a query, we have to use the `execute("query")` method provided by `pool` that we created (it uses promises) to execute a query. So:
 
@@ -93,7 +95,7 @@ pool.execute("SELECT * FROM tableName")
     })
 ```
 
-### Insert data safely
+#### Insert data safely
 
 To insert data, we have to execute an INSERT query.
 
@@ -104,6 +106,46 @@ To insert data, we have to execute an INSERT query.
     [this.title, this.price, this.imageUrl, this.description]
   );
   ```
+
+## SQL Implementation with Sequelize
+
+### Core Concept
+
+Sequelize is a third-party package, more precisely an ORM library. It handles the creation of the tables, insert, update, relations etc. so we don't have to write any SQL code. We define a model which represents a class for example (users, product..). We instanciate those models using a build method on the model defined by Sequelize and then we can execute queries to insert, get all, and defining the relations. 
+
+### Installation
+
+To install Sequelize, we have to install package sequelize: `npm install --save sequelize`.
+
+- **IMPORTANT** : The package mysql2 must be installed too in order to work.
+
+### Initialisation
+
+To initialize Sequelize, we have to import it first and then intianciate a Sequelize object. This object is initialized with: database name, username, password. Optionnally, we can specify the host (which is by default localhost) and database engine type which is mysql. We do that by creating an object as 4th argument with: `host` and `dialect` as properties. Example:
+
+
+```
+const sequelize = Sequelize("node-complete", "root", "sasa42+", {
+  dialect: "mysql",
+  host: "localhost"
+});
+```
+
+### Defining a Model
+
+To define a Model, we have to import sequelize object initialized and call a function `define()` to define a new model. First argument represents the name of the model, after that we declare an object that represents our model. For every property of our model, we declare an another object that contains `type` (type is defined with Sequelize package) as a property and other property that we can use like: allowNull, primaryKey, autoIncrement..(Optionnally, we can specify directly the type)
+Example:
+```
+const Product = sequelize.define("product", {
+  id: {
+    type = Sequelize.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true
+  },
+  title: Sequelize.STRING
+});
+```
 
 # Side notes
 
