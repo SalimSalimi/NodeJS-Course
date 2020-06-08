@@ -16,23 +16,24 @@ exports.getProducts = (req, res, next) => {
    * We don't have to explicitely the path of the view
    * Just specify the name of the view
    */
-  Product.findAll().then(products => {
-    res.render("shop/product-list", {
-      prods: products,
-      pageTitle: "All Products",
-      path: "/products",
+  Product.findAll()
+    .then(products => {
+      res.render("shop/product-list", {
+        prods: products,
+        pageTitle: "All Products",
+        path: "/products",
+      });
+    }).catch(error => {
+      console.log(error);
     });
-  }).catch(error => {
-    console.log(error);
-  });
 };
 
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
-  Product.findById(prodId)
-    .then(([product]) => {
+  Product.findByPk(prodId)
+    .then(product => {
       res.render("shop/product-detail", {
-        product: product[0],
+        product: product,
         pageTitle: product.title,
         path: "/products",
       });

@@ -158,9 +158,23 @@ To add a new entry to the database, we have to use the Product model and use `cr
 
 ### Fetching Data 
 
+#### Fetching all the data
 To fetch from database, we use Product model and call `findAll()` method to fetch all the data. It returns a Promise. 
 
 - *N.B*: In `findAll()` method, we can add options like WHERE condition..
+
+#### Fetching data by Id
+To fetch data by ID, we use the method `findByPk()` method to fetch all the data. It returns a Promise.
+
+#### Fetching data by where condition
+To fetch data by a condition, we use the method `findAll()` and in parenthesis we pass an object that contains the property `where` and pass an another object. Example:
+
+```
+Product.findAll({where: {id: prodId}});
+```
+
+It returns a Promise and result is always an array.
+
 
 # Side notes
 
