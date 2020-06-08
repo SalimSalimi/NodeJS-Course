@@ -152,7 +152,9 @@ To make Sequelize create tables defined by the models, we should import the Sequ
 
 - **IMPORTANT**: It creates two other columns (createdAt & updatedAt), we can desactivate that.
 
+### Adding a new entry to the database
 
+To add a new entry to the database, we have to use the Product model and use `create()` or `build()` method. The difference between the two methods is that the first one adds automatically to the database. The create method takes an object of type of the model itself. Example: `Product.create(object)`.
 
 # Side notes
 
