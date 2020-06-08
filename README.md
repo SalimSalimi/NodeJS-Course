@@ -123,7 +123,6 @@ To install Sequelize, we have to install package sequelize: `npm install --save 
 
 To initialize Sequelize, we have to import it first and then intianciate a Sequelize object. This object is initialized with: database name, username, password. Optionnally, we can specify the host (which is by default localhost) and database engine type which is mysql. We do that by creating an object as 4th argument with: `host` and `dialect` as properties. Example:
 
-
 ```
 const sequelize = Sequelize("node-complete", "root", "sasa42+", {
   dialect: "mysql",
@@ -146,6 +145,14 @@ const Product = sequelize.define("product", {
   title: Sequelize.STRING
 });
 ```
+
+### Synchronizing Models with Database
+
+To make Sequelize create tables defined by the models, we should import the Sequelize object that instanciated database and call the sync() method to create it (It returns a Promise). 
+
+- **IMPORTANT**: It creates two other columns (createdAt & updatedAt), we can desactivate that.
+
+
 
 # Side notes
 

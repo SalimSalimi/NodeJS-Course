@@ -7,6 +7,7 @@ const app = express();
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
+const sequelize = require('./utils/database');
 
 //Adding body-parser to parse the body of the request
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -57,6 +58,11 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-app.listen(3000, () => {
-  console.log("Server started at port 3000");
+sequelize.sync().then(() => {
+  app.listen(3000, () => {
+    console.log("Server started at port 3000");
+  });  
+}).catch(error => {
+  console.log(error);
 });
+
