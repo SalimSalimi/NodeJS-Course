@@ -178,6 +178,9 @@ It returns a Promise and result is always an array.
 #### Update data
 To update a row on a table, we have to find the corresponding row that we want to chage with `findByPk`. We set the new values to the object result, then to save it on the database, we have to call `product.save()` *(Otherwise, it will change only locally)*. This function returns a Promise, we return `product.save()` to handle the promise, and in `then()`, we are sure that the object is updated on the database. 
 
+#### Delete data
+To delete a row on a table, it's the same logic with the update. Instead of calling `Product.save()`, we just call `Product.destroy()` on the product returned by the query. 
+
 # Side notes
 
 - **include-EJS**: On EJS, if we include a template that uses a variable, this include is used inside a block (for-loop for example). We can pass that variable to the include like this: `<%- include('file', {value: variable})%>`
