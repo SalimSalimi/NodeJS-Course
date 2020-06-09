@@ -200,7 +200,7 @@ When we have an association of **Many-To-Many**, we must create an intermediate 
 To add a product into a cart, we can use `Cart.addProduct()` by specifying on the parameters the product object and an another object `{ through: { quantity: value }}` to specify other fields in the intermediate tables.
 
 
-To access 
+To access to the quantity field in the intermediate table, we can use the product.cartItem to get the row in the table cartItem, and then we can access the quantity. 
 
 ## Notes
 
