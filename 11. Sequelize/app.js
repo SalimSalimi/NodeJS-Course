@@ -9,6 +9,8 @@ const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
 const sequelize = require('./utils/database');
 
+const Product = require('./models/product');
+const User = require('./models/user');
 //Adding body-parser to parse the body of the request
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -58,7 +60,10 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-sequelize.sync().then(() => {
+Product.belongsTo(User, { constraint: true, onDelete: 'CASCADE'});
+User.hasMany(Product);
+
+sequelize.sync({force: true}).then(() => {
   app.listen(3000, () => {
     console.log("Server started at port 3000");
   });  
