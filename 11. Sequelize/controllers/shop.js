@@ -77,9 +77,37 @@ exports.getCart = (req, res) => {
 
 exports.postCart = (req, res) => {
   const prodId = req.body.productId;
-  Product.findById(prodId, (product) => {
-    Cart.addProduct(prodId, product.price);
-  });
+  let fetchedCart;
+  req.user.getCart()
+    .then(cart => {
+      // Getting the product to update the quantity
+      fetchedCart = cart;
+      return cart.getProducts({where: { id: prodId }});
+    })
+    .then(products => {
+      let product;
+      if(products.length > 0) {
+        product = products[0];
+      }
+      let newQuantity = 1;
+      if (product) {
+
+      }
+      return Product.findByPk(prodId)
+        .then(product => {
+          return fetchedCart.addProduct(product, { 
+            through: { quantity: newQuantity }})
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    })
+    .then(() => {
+      //res.redirect('/cart');
+    })
+    .catch(error => {
+      console.log(error);
+    });
   res.redirect("/cart");
 };
 
