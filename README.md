@@ -189,8 +189,12 @@ Example of user having many products: `Product.belongsTo(User, { constraint: tru
 #### Adding Data Association
 While defining our models and associations, Sequelize creates new methods to add new entries while respecting the association. For example: A user can is associated with multiple products, so Sequelize provides a method to create a new Product and associated with the user directly. To do so, we use the models: `User.createProduct({object})`. 
 
-### Fetching Data Association
+#### Fetching Data Association
 As for adding, Sequelize provides also methods to fetch data. For example, to fetch all products associated with one user: `User.getProducts()`. We can also add conditions (like where) in parenthesis.
+
+#### Association Many-To-Many
+
+When we have an association of **Many-To-Many**, we must create an intermediate table. To do so, we create a new model, define an id an other fields if we want. After that, on defining the relations, we must use the `ModelA.belongsToMany(ModelB)` to the models for two way. In addition, we must specify the model that will be used for the intermediate table. We specify by adding the object {through: ModelIntermediate} after Model on the function. Example: `ModelA.belongsToMany(ModelB, object)`.
 
 ## Notes
 

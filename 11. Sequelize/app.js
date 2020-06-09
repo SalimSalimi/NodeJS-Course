@@ -9,8 +9,12 @@ const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
 const sequelize = require('./utils/database');
 
+//Importing models
 const Product = require('./models/product');
 const User = require('./models/user');
+const Cart = require('./models/cart');
+const CartItem = require('./models/cart-item');
+
 //Adding body-parser to parse the body of the request
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -73,8 +77,12 @@ app.use(errorController.get404);
 
 Product.belongsTo(User, { constraint: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product, {through: CartItem});
+Product.belongsToMany(Cart, {through: CartItem});
 
-sequelize.sync().then(() => {
+sequelize.sync({force: true}).then(() => {
     User.findByPk(1)
       .then(user => {
         if (!user) {
