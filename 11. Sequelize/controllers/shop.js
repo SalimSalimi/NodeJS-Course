@@ -133,8 +133,10 @@ exports.getCheckout = (req, res) => {
 };
 
 exports.postOrder = (req, res) => {
+  let fetchedCart;
   req.user.getCart()
     .then(cart => {
+      fetchedCart = cart;
       return cart.getProducts();
     })
     .then(products => {
@@ -149,7 +151,10 @@ exports.postOrder = (req, res) => {
           console.log(error);
         });
     })
-    .then(result => {
+    .then(() => {
+      return fetchedCart.setProducts(null);
+    })
+    .then(() => {
       res.redirect('/orders');
     })
     .catch(error => {
