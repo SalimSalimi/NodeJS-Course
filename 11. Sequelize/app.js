@@ -82,7 +82,8 @@ Cart.belongsTo(User);
 Cart.belongsToMany(Product, {through: CartItem});
 Product.belongsToMany(Cart, {through: CartItem});
 
-sequelize.sync({force: true}).then(() => {
+sequelize.sync()
+  .then(() => {
     User.findByPk(1)
       .then(user => {
         if (!user) {
@@ -90,11 +91,13 @@ sequelize.sync({force: true}).then(() => {
         }
         return user;
       }).then(user => {
+        return user.createCart();
+      }).then(cart => {
         app.listen(3000, () => {
           console.log("Server started at port 3000");
         });
       })
-}).catch(error => {
+  }).catch(error => {
   console.log(error);
 });
 
