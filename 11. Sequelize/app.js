@@ -55,6 +55,15 @@ app.set("views", "views");
  * It will executes /admin/(route)
  * We don't have to specify admin on our route on adminRoutes
  */
+app.use((req, res, next) => {
+  User.findByPk(1)
+    .then(user => {
+      req.user = user;
+    })
+    .catch(error => {
+      console.log(error);
+    })
+})
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 
@@ -63,10 +72,18 @@ app.use(errorController.get404);
 Product.belongsTo(User, { constraint: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
 
-sequelize.sync({force: true}).then(() => {
-  app.listen(3000, () => {
-    console.log("Server started at port 3000");
-  });  
+sequelize.sync().then(() => {
+    User.findByPk(1)
+      .then(user => {
+        if (!user) {
+          return User.create( {name:"Salim", email: "test@test.com"} );
+        }
+        return user;
+      }).then(user => {
+        app.listen(3000, () => {
+          console.log("Server started at port 3000");
+        });
+      })
 }).catch(error => {
   console.log(error);
 });
