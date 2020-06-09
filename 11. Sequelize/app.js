@@ -14,6 +14,8 @@ const Product = require('./models/product');
 const User = require('./models/user');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
+const Order = require('./models/order');
+const OrderItem = require('./models/order-item');
 
 //Adding body-parser to parse the body of the request
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -75,14 +77,46 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+/**
+ * Product belongs to one user
+ * A User can have multiple products
+ * One-To-Many Relationship
+ */
 Product.belongsTo(User, { constraint: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
+/**
+ * a User has only one cart
+ * a Cart belongs to only one user
+ * One-To-One Relationship
+ */
 User.hasOne(Cart);
 Cart.belongsTo(User);
+/**
+ * Cart can have multiple products
+ * Product can belong to multiple carts
+ * Many-To-Many Relationship
+ * Creating a new intermediate table cartItem
+ */
 Cart.belongsToMany(Product, {through: CartItem});
 Product.belongsToMany(Cart, {through: CartItem});
 
-sequelize.sync()
+/**
+ * An order belongs to one User
+ * A User can have multiple orders
+ * One-To-Many relationship
+ */
+Order.belongsTo(User);
+User.hasMany(Order);
+
+/**
+ * an Order belongs to many Product
+ * Many-To-Many Relationship
+ * Intermediate table OrderItem
+ */
+Order.belongsToMany(Product, {through: OrderItem});
+
+//Initializing the database
+sequelize.sync({force: true})
   .then(() => {
     User.findByPk(1)
       .then(user => {
