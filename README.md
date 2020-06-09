@@ -197,7 +197,10 @@ As for adding, Sequelize provides also methods to fetch data. For example, to fe
 When we have an association of **Many-To-Many**, we must create an intermediate table. To do so, we create a new model, define an id an other fields if we want. After that, on defining the relations, we must use the `ModelA.belongsToMany(ModelB)` to the models for two way. In addition, we must specify the model that will be used for the intermediate table. We specify by adding the object {through: ModelIntermediate} after Model on the function. Example: `ModelA.belongsToMany(ModelB, object)`.
 
 
-To add a product into a cart, we can use `Cart.addProduct()` by specifying on the parameters the product object and an another object `{ through: { quantity: value }}` to specify other fields in the intermediate tables. 
+To add a product into a cart, we can use `Cart.addProduct()` by specifying on the parameters the product object and an another object `{ through: { quantity: value }}` to specify other fields in the intermediate tables.
+
+
+To access 
 
 ## Notes
 
