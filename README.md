@@ -186,6 +186,9 @@ To create associations between table, Sequelize a bunch of useful methods that c
 
 Example of user having many products: `Product.belongsTo(User, { constraint: true, onDelete: 'CASCADE'});` OR `User.hasMany(Product)`.
 
+#### Adding Data Association
+While defining our models and associations, Sequelize creates new methods to add new entries while respecting the association. For example: A user can is associated with multiple products, so Sequelize provides a method to create a new Product and associated with the user directly. To do so, we use the models: `User.createProduct({object})`. 
+
 ## Notes
 
 When updating a new model, we should add an object `force: true` in `sync()` to update the tables schema. It will delete all the tables and the data on the database. 

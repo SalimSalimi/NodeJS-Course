@@ -55,10 +55,12 @@ app.set("views", "views");
  * It will executes /admin/(route)
  * We don't have to specify admin on our route on adminRoutes
  */
+//Passing the dummy user through request object to access it everywhere.
 app.use((req, res, next) => {
   User.findByPk(1)
     .then(user => {
       req.user = user;
+      next();
     })
     .catch(error => {
       console.log(error);
