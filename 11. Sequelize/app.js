@@ -116,7 +116,7 @@ User.hasMany(Order);
 Order.belongsToMany(Product, {through: OrderItem});
 
 //Initializing the database
-sequelize.sync({force: true})
+sequelize.sync()
   .then(() => {
     User.findByPk(1)
       .then(user => {
