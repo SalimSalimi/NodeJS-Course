@@ -181,6 +181,15 @@ To update a row on a table, we have to find the corresponding row that we want t
 #### Delete data
 To delete a row on a table, it's the same logic with the update. Instead of calling `Product.save()`, we just call `Product.destroy()` on the product returned by the query. 
 
+### Associations
+To create associations between table, Sequelize a bunch of useful methods that can create those associations for us. The method `belongsTo` called on a Model creates an association of one-to-many, also `hasMany()` do the same thing. We can add constraints to `belongsTo` by creating an object that has a property `constraints: true`. We can express constraints like `onDelete: 'Cascade`.
+
+Example of user having many products: `Product.belongsTo(User, { constraint: true, onDelete: 'CASCADE'});` OR `User.hasMany(Product)`.
+
+## Notes
+
+When updating a new model, we should add an object `force: true` in `sync()` to update the tables schema. It will delete all the tables and the data on the database. 
+
 # Side notes
 
 - **include-EJS**: On EJS, if we include a template that uses a variable, this include is used inside a block (for-loop for example). We can pass that variable to the include like this: `<%- include('file', {value: variable})%>`
