@@ -205,8 +205,11 @@ To access to the quantity field in the intermediate table, we can use the produc
 ##### Delete data on intermediate table
 Again, with the cartItem property created on product, we can delete the element by calling the method `destroy`. Example: `product.cartItem.destroy()`.
 
-#### Deleting all the data
+##### Deleting all the data
 To clean the cart and remove all the products, we can do "Cart.setProducts(null)" to clean it.
+
+##### Eager Loading
+Check the doc(to review!!)
 
 ## Notes
 

@@ -163,9 +163,15 @@ exports.postOrder = (req, res) => {
 }
 
 exports.getOrders = (req, res) => {
-  res.render("shop/orders", {
-    path: "/orders",
-    pageTitle: "Your Orders",
+  // Added by Sequelize because of association
+  req.user.getOrders({include: ['products']})
+    .then(orders => {
+    res.render("shop/orders", {
+      path: "/orders",
+      pageTitle: "Your Orders",
+      orders: orders
+    });
+  }).catch(error => {
+    console.log(error);
   });
 };
-
