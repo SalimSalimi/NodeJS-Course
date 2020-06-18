@@ -211,6 +211,25 @@ To clean the cart and remove all the products, we can do "Cart.setProducts(null)
 ##### Eager Loading
 Check the doc(to review!!)
 
+# NoSQL Implementation
+
+## MongoDB
+
+It's a Document-Oriented NoSQL database engine that it meant to store a lot amount of data, for large scale application.
+
+### Concepts
+
+A MongoDB database is a set of collections *(equivalent to tables in SQL)*, every collection contains a set of documents *(rows (actual data))*. That data doesn't have any fixed structure.
+
+### Relations in NoSQL
+
+To express relations in NoSQL, there is 2 options: 
+
+* **By embedding/duplicating:** We duplicate the data *(document)* from a collection to an another collection.
+* **References**: Sometimes, when the data can change, it will be hard to update all the data duplicated, so we can use references by using IDs.
+
+
+
 ## Notes
 
 When updating a new model, we should add an object `force: true` in `sync()` to update the tables schema. It will delete all the tables and the data on the database. 
