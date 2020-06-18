@@ -228,7 +228,12 @@ To express relations in NoSQL, there is 2 options:
 * **By embedding/duplicating:** We duplicate the data *(document)* from a collection to an another collection.
 * **References**: Sometimes, when the data can change, it will be hard to update all the data duplicated, so we can use references by using IDs.
 
+## Implementation with MongoDB
 
+In this course, we are using MongoDB database in a cloud service (Atlas). So we have to setup everything on the Atlas website (Creating account, cluster, creating a user, defining IP Address).
+After that, we can connect to our instance using the driver provided by Atlas.
+
+To connect to a MongoDB database, we have to install MongoDB package: `npm install --save mongodb`. After that, we set up the configuration according the driver provided by Atlas and connect to the instance of our db.
 
 ## Notes
 
